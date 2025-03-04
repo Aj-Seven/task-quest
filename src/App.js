@@ -89,6 +89,7 @@ const App = () => {
           taskDesc={mode === "Edit Task" ? taskToEdit?.taskDesc : ""}
           dueDate={mode === "Edit Task" ? taskToEdit?.dueDate : ""}
           taskId={mode === "Edit Task" ? taskToEdit?.id : null} // Pass taskId for editing
+          onSubmit={() => setIsDialogOpen(false)}
         />
       </Dialog>
     </div>
