@@ -7,11 +7,20 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [mode, setMode] = useState("Add Task");
+  const [taskToEdit, setTaskToEdit] = useState(null); // For holding the task to edit
 
   const addTask = (task) => {
     const newTasks = [...tasks, { ...task, id: tasks.length + 1 }];
     setTasks(newTasks);
     localStorage.setItem("tasks", JSON.stringify(newTasks));
+  };
+
+  const updateTask = (updatedTask) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === updatedTask.id ? updatedTask : task
+    );
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
   const deleteTask = (id) => {
@@ -29,14 +38,9 @@ const App = () => {
   };
 
   const editTask = (task) => {
-    const updatedTasks = tasks.map((t) =>
-      t.id === task.id ? { ...t, ...task } : t
-    );
-    setTasks(updatedTasks);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-    setMode("Edit Task");
-    setTasks(tasks);
-    setIsDialogOpen(true);
+    setTaskToEdit(task); // Set task data to edit
+    setMode("Edit Task"); // Set mode to edit
+    setIsDialogOpen(true); // Open dialog in edit mode
   };
 
   const openDialog = () => {
@@ -45,6 +49,8 @@ const App = () => {
 
   const closeDialog = () => {
     setIsDialogOpen(false);
+    setMode("Add Task"); // Reset mode
+    setTaskToEdit(null); // Clear task to edit
   };
 
   useEffect(() => {
@@ -75,7 +81,15 @@ const App = () => {
       />
 
       <Dialog isOpen={isDialogOpen} onClose={closeDialog}>
-        <AddTask onAdd={addTask} mode={mode} />
+        <AddTask
+          onAdd={addTask}
+          onUpdate={updateTask}
+          mode={mode}
+          taskName={mode === "Edit Task" ? taskToEdit?.taskName : ""}
+          taskDesc={mode === "Edit Task" ? taskToEdit?.taskDesc : ""}
+          dueDate={mode === "Edit Task" ? taskToEdit?.dueDate : ""}
+          taskId={mode === "Edit Task" ? taskToEdit?.id : null} // Pass taskId for editing
+        />
       </Dialog>
     </div>
   );

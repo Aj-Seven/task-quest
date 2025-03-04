@@ -1,24 +1,45 @@
 import React, { useState, useEffect } from "react";
 
-const AddTask = ({ onAdd, mode }) => {
-  const [taskName, setTaskName] = useState("");
-  const [taskDesc, setTaskDesc] = useState("");
-  const [dueDate, setDueDate] = useState("");
+const AddTask = ({
+  onAdd,
+  onUpdate,
+  mode,
+  taskName: initTaskName,
+  taskDesc: initTaskDesc,
+  dueDate: initDueDate,
+  taskId,
+}) => {
+  const [taskName, setTaskName] = useState(initTaskName);
+  const [taskDesc, setTaskDesc] = useState(initTaskDesc);
+  const [dueDate, setDueDate] = useState(initDueDate);
   const [minDate, setMinDate] = useState(""); // State to hold minimum date and time
 
   useEffect(() => {
     // Get the current date and time
     const currentDate = new Date();
-
-    // Adjusting current date and time to ensure we are not picking past times
     const formattedDate = currentDate.toISOString().slice(0, 16); // Extracts 'YYYY-MM-DDTHH:MM'
     setMinDate(formattedDate);
   }, []);
 
+  // Whenever the task data changes, update the local state
+  useEffect(() => {
+    setTaskName(initTaskName);
+    setTaskDesc(initTaskDesc);
+    setDueDate(initDueDate);
+  }, [initTaskName, initTaskDesc, initDueDate]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAdd({ taskName, taskDesc, dueDate, completed: false });
-    setTaskName("");
+
+    const task = { taskName, taskDesc, dueDate, completed: false };
+
+    if (mode === "Edit Task") {
+      onUpdate({ ...task, id: taskId }); // Update task with the existing id
+    } else {
+      onAdd(task); // Add a new task
+    }
+
+    setTaskName(""); // Reset input fields after submit
     setTaskDesc("");
     setDueDate("");
   };
@@ -67,7 +88,7 @@ const AddTask = ({ onAdd, mode }) => {
 
       <input
         type="datetime-local"
-        value={new Date().toISOString().slice(0, 16)} // Set default datetime as current
+        value={dueDate}
         min={minDate} // Ensure the min date is the current date and time
         onChange={handleDateChange}
         className="w-full mb-4 p-2 border border-gray-300 rounded"
