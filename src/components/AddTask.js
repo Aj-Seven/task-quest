@@ -14,6 +14,7 @@ const AddTask = ({
   const [taskDesc, setTaskDesc] = useState(initTaskDesc);
   const [dueDate, setDueDate] = useState(initDueDate);
   const [minDate, setMinDate] = useState(""); // State to hold minimum date and time
+  const [priority, setPriority] = useState("Low");
 
   useEffect(() => {
     // Get the current date and time
@@ -27,12 +28,13 @@ const AddTask = ({
     setTaskName(initTaskName);
     setTaskDesc(initTaskDesc);
     setDueDate(initDueDate);
-  }, [initTaskName, initTaskDesc, initDueDate]);
+    setPriority(priority);
+  }, [initTaskName, initTaskDesc, initDueDate, priority]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const task = { taskName, taskDesc, dueDate, completed: false };
+    const task = { taskName, taskDesc, dueDate, completed: false, priority };
 
     if (mode === "Edit Task") {
       onUpdate({ ...task, id: taskId }); // Update task with the existing id
@@ -92,6 +94,19 @@ const AddTask = ({
         onChange={(e) => setTaskDesc(e.target.value)}
         className="w-full mb-4 p-2 border border-gray-300 rounded"
       />
+      <label className="block mb-2" htmlFor="priority">
+        Set Priority:
+      </label>
+      <select
+        id="priority"
+        className="w-full mb-4 p-2 border border-gray-300 rounded"
+        value={priority}
+        onChange={(e) => setPriority(e.target.value)}
+      >
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
 
       <input
         type="datetime-local"

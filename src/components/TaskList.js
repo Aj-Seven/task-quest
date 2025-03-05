@@ -1,6 +1,6 @@
 import TaskItem from "./TaskItem";
 
-const TaskList = ({ tasks, onDelete, onComplete, onEdit }) => {
+const TaskList = ({ tasks, onDelete, onComplete, onEdit, priority }) => {
   return (
     <div className="max-w-2xl mx-auto flex bg-white border border-gray-300 rounded-lg shadow-sm flex-col content-center mt-2 p-2">
       <h1 className="text-2xl font-bold ml-1 border-b-2 border-blue-500">
@@ -16,6 +16,7 @@ const TaskList = ({ tasks, onDelete, onComplete, onEdit }) => {
               onDelete={onDelete}
               onComplete={onComplete}
               onEdit={onEdit}
+              priority={priority}
             />
           ))
         ) : (

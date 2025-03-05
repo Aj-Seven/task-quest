@@ -1,7 +1,9 @@
-const TaskItem = ({ task, onDelete, onComplete, onEdit }) => {
+const TaskItem = ({ task, onDelete, onComplete, onEdit, priority }) => {
   return (
-    <div className="flex justify-between items-center flex-column flex-wrap py-3 bg-white mb-4 border-b border-gray-300">
-      <div>
+    <div
+      className={`flex justify-between items-center flex-column flex-wrap rounded-md ${priority}`}
+    >
+      <div className="flex flex-col w-full overflow-auto break-words">
         <h3
           className={`font-bold ${
             task.completed ? "line-through text-gray-400" : "text-black"
@@ -24,6 +26,7 @@ const TaskItem = ({ task, onDelete, onComplete, onEdit }) => {
           Due: {task.dueDate}
         </span>
       </div>
+
       <div className="flex space-x-2">
         <button
           onClick={() => onComplete(task)}

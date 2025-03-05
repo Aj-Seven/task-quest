@@ -47,6 +47,13 @@ const App = () => {
     setIsDialogOpen(true);
   };
 
+  const priority = (task) => {
+    const priorityTasks = tasks.map((t) =>
+      t.id === task.id ? { ...t, priority: task.priority } : t
+    );
+    return priorityTasks;
+  };
+
   const closeDialog = () => {
     setIsDialogOpen(false);
     setMode("Add Task"); // Reset mode
@@ -78,6 +85,7 @@ const App = () => {
         onDelete={deleteTask}
         onComplete={completeTask}
         onEdit={editTask}
+        priority={priority(tasks)}
       />
 
       <Dialog isOpen={isDialogOpen} onClose={closeDialog}>
