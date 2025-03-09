@@ -1,7 +1,23 @@
 const TaskItem = ({ task, onDelete, onComplete, onEdit, priority }) => {
+  // Apply background color based on priority
+  const getPriorityClass = (priority) => {
+    switch (priority) {
+      case "High":
+        return "bg-gradient-to-r from-red-100 to-red-500";
+      case "Medium":
+        return "bg-gradient-to-r from-yellow-100 to-yellow-500";
+      case "Low":
+        return "bg-gradient-to-r from-green-100 to-green-500";
+      default:
+        return "bg-gradient-to-r from-gray-100 to-gray-500";
+    }
+  };
+
   return (
     <div
-      className={`flex justify-between items-center flex-column flex-wrap rounded-md ${priority}`}
+      className={`flex justify-between items-center flex-column flex-wrap rounded-md border border-gray-400 ${getPriorityClass(
+        priority
+      )} p-4 m-2`}
     >
       <div className="flex flex-col w-full overflow-auto break-words">
         <h3
@@ -12,15 +28,15 @@ const TaskItem = ({ task, onDelete, onComplete, onEdit, priority }) => {
           {task.taskName}
         </h3>
         <p
-          className={`text-sm ${
-            task.completed ? "text-gray-500" : "text-gray-700"
+          className={`text-xl ${
+            task.completed ? " line-through text-gray-400" : "text-black"
           }`}
         >
           {task.taskDesc}
         </p>
         <span
-          className={`text-xs ${
-            task.completed ? "text-gray-400" : "text-gray-600"
+          className={`text-md ${
+            task.completed ? "line-through text-gray-400" : "text-black"
           }`}
         >
           Due: {task.dueDate}
@@ -36,7 +52,7 @@ const TaskItem = ({ task, onDelete, onComplete, onEdit, priority }) => {
         </button>
         <button
           onClick={() => onEdit(task)}
-          className="text-yellow-500 hover:text-yellow-700"
+          className="text-cyan-500 hover:text-cyan-700"
         >
           Edit
         </button>

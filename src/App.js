@@ -7,7 +7,7 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [mode, setMode] = useState("Add Task");
-  const [taskToEdit, setTaskToEdit] = useState(null); // For holding the task to edit
+  const [taskToEdit, setTaskToEdit] = useState(null);
 
   const addTask = (task) => {
     const newTasks = [...tasks, { ...task, id: tasks.length + 1 }];
@@ -38,26 +38,19 @@ const App = () => {
   };
 
   const editTask = (task) => {
-    setTaskToEdit(task); // Set task data to edit
-    setMode("Edit Task"); // Set mode to edit
-    setIsDialogOpen(true); // Open dialog in edit mode
+    setTaskToEdit(task);
+    setMode("Edit Task");
+    setIsDialogOpen(true);
   };
 
   const openDialog = () => {
     setIsDialogOpen(true);
   };
 
-  const priority = (task) => {
-    const priorityTasks = tasks.map((t) =>
-      t.id === task.id ? { ...t, priority: task.priority } : t
-    );
-    return priorityTasks;
-  };
-
   const closeDialog = () => {
     setIsDialogOpen(false);
-    setMode("Add Task"); // Reset mode
-    setTaskToEdit(null); // Clear task to edit
+    setMode("Add Task");
+    setTaskToEdit(null);
   };
 
   useEffect(() => {
@@ -69,7 +62,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-1">
-      <h2 className="text-center text-2xl font-bold">Task Manager</h2>
+      <h2 className="text-center text-4xl mb-4 font-bold">Task Manager</h2>
       <button
         onClick={() => {
           openDialog();
@@ -80,12 +73,12 @@ const App = () => {
         Add Task +
       </button>
 
+      {/* Pass each task's priority directly */}
       <TaskList
         tasks={tasks}
         onDelete={deleteTask}
         onComplete={completeTask}
         onEdit={editTask}
-        priority={priority(tasks)}
       />
 
       <Dialog isOpen={isDialogOpen} onClose={closeDialog}>
@@ -96,7 +89,7 @@ const App = () => {
           taskName={mode === "Edit Task" ? taskToEdit?.taskName : ""}
           taskDesc={mode === "Edit Task" ? taskToEdit?.taskDesc : ""}
           dueDate={mode === "Edit Task" ? taskToEdit?.dueDate : ""}
-          taskId={mode === "Edit Task" ? taskToEdit?.id : null} // Pass taskId for editing
+          taskId={mode === "Edit Task" ? taskToEdit?.id : null}
           onSubmit={() => setIsDialogOpen(false)}
         />
       </Dialog>

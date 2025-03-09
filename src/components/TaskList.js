@@ -7,7 +7,7 @@ const TaskList = ({ tasks, onDelete, onComplete, onEdit, priority }) => {
         {" "}
         Task List
       </h1>
-      <div className="mt-2 p-2">
+      <div>
         {tasks && tasks.length > 0 ? (
           tasks.map((task) => (
             <TaskItem
@@ -16,7 +16,7 @@ const TaskList = ({ tasks, onDelete, onComplete, onEdit, priority }) => {
               onDelete={onDelete}
               onComplete={onComplete}
               onEdit={onEdit}
-              priority={priority}
+              priority={task.priority}
             />
           ))
         ) : (
