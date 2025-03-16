@@ -1,3 +1,5 @@
+import React from "react";
+
 const TaskItem = ({ task, onDelete, onComplete, onEdit, priority }) => {
   // Apply background color based on priority
   const getPriorityClass = (priority) => {
@@ -19,46 +21,52 @@ const TaskItem = ({ task, onDelete, onComplete, onEdit, priority }) => {
         priority
       )} p-4 m-2`}
     >
+      {/* Task Information */}
       <div className="flex flex-col w-full overflow-auto break-words">
         <h3
           className={`font-bold ${
-            task.completed ? "line-through text-gray-400" : "text-black"
+            task.completed ? "text-gray-600" : "text-black"
           }`}
         >
           {task.taskName}
         </h3>
         <p
           className={`text-xl ${
-            task.completed ? " line-through text-gray-400" : "text-black"
+            task.completed ? "text-gray-600" : "text-black"
           }`}
         >
           {task.taskDesc}
         </p>
         <span
           className={`text-md ${
-            task.completed ? "line-through text-gray-400" : "text-black"
+            task.completed ? "line-through text-gray-600" : "text-black"
           }`}
         >
           Due: {task.dueDate}
         </span>
       </div>
 
-      <div className="flex space-x-2">
-        <button
-          onClick={() => onComplete(task)}
-          className="text-green-500 hover:text-green-700"
-        >
-          Complete
-        </button>
-        <button
-          onClick={() => onEdit(task)}
-          className="text-cyan-500 hover:text-cyan-700"
-        >
-          Edit
-        </button>
+      {/* Action Buttons */}
+      <div className="flex space-x-1.5 mt-1">
+        {!task.completed && (
+          <>
+            <button
+              onClick={() => onComplete(task)}
+              className="font-bold text-green-500 hover:text-green-700"
+            >
+              Complete
+            </button>
+            <button
+              onClick={() => onEdit(task)}
+              className="font-bold text-cyan-500 hover:text-cyan-700"
+            >
+              Edit
+            </button>
+          </>
+        )}
         <button
           onClick={() => onDelete(task.id)}
-          className="text-red-500 hover:text-red-700"
+          className="font-bold text-red-500 hover:text-red-700"
         >
           Delete
         </button>
