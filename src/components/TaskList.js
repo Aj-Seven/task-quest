@@ -79,14 +79,14 @@ const TaskList = ({ tasks, onDelete, onComplete, onEdit }) => {
             />
           ))
         ) : (
-          <p className="text-center text-gray-500">
-            No Active tasks available.
+          <p className="text-center text-gray-500 p-4">
+            No Active tasks available. Try Adding...
           </p>
         )}
       </div>
 
       {/* Completed Tasks Dialog Section */}
-      {completedTasks.length > 0 && (
+      {completedTasks.length > 0 ? (
         <div className="mt-4">
           <Dialog isOpen={isDialogOpen} onClose={closeDialog}>
             <div className="mt-10 overflow-auto h-80">
@@ -103,6 +103,12 @@ const TaskList = ({ tasks, onDelete, onComplete, onEdit }) => {
             </div>
           </Dialog>
         </div>
+      ) : (
+        <Dialog isOpen={isDialogOpen} onClose={closeDialog}>
+          <div className="max-w-2xl mx-auto">
+            <h1 className="text-2xl mt-12 p-10"> List is Empty </h1>
+          </div>
+        </Dialog>
       )}
     </div>
   );
