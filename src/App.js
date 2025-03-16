@@ -68,7 +68,7 @@ const App = () => {
           openDialog();
           setMode("Add Task");
         }}
-        className="fixed bottom-0 right-2 m-4 rounded bg-blue-500 text-white p-2"
+        className="fixed bottom-0 right-2 m-4 rounded bg-blue-500 hover:bg-blue-700 text-white p-2"
       >
         Add Task +
       </button>

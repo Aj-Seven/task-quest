@@ -18,10 +18,10 @@ const Dialog = ({ isOpen, onClose, children }) => {
       <div className="relative z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-2 text-center sm:items-center sm:p-0">
           <div className="relative transform overflow-hidden rounded-lg bg-white text-left border border-gray-400 p-1 shadow-md transition-all sm:my-8 sm:w-full sm:max-w-lg">
-            <div className="absolute top-0 right-0 pt-0 pr-1">
+            <div className="absolute top-0 right-0 pt-0 pr-0">
               <button
                 type="button"
-                className="inline-flex justify-center rounded-md bg-white px-3 py-2 text-md font-bold text-red-500 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50"
+                className="inline-flex justify-center rounded-md bg-white px-3.5 py-2 text-md font-bold text-red-500 ring-2 shadow-xs ring-gray-300 ring-inset hover:text-red-600 hover:bg-gray-100"
                 onClick={onClose}
               >
                 X
