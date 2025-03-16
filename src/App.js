@@ -62,7 +62,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-1">
-      <h2 className="text-center text-4xl mb-4 font-bold">Task Manager</h2>
+      <h2 className="text-center text-4xl mb-4 font-bold">Task Quest</h2>
       <button
         onClick={() => {
           openDialog();
