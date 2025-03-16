@@ -84,6 +84,7 @@ const AddTask = ({
         type="text"
         placeholder="Enter Task Name"
         value={taskName}
+        required
         onChange={(e) => setTaskName(e.target.value)}
         className="w-full mb-4 p-2 border border-gray-300 rounded"
       />
@@ -91,6 +92,7 @@ const AddTask = ({
       <textarea
         placeholder="Enter Task Description"
         value={taskDesc}
+        required
         onChange={(e) => setTaskDesc(e.target.value)}
         className="w-full mb-4 p-2 border border-gray-300 rounded"
       />
